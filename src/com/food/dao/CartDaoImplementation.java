@@ -155,7 +155,8 @@ public class CartDaoImplementation implements CartDao{
 	}
 
 	@Override
-	public Cart searchFromCartByCustomerEmail(String customerEmail) {
+	public List<Cart> searchFromCartByCustomerEmail(String customerEmail) {
+		List<Cart> list = new ArrayList<>();
 		try {
 			sql = "SELECT * FROM Cart INNER JOIN Food ON Food.foodId = Cart.foodId WHERE customerEmail = ?";
 			ps = con.prepareStatement(sql);
@@ -175,12 +176,13 @@ public class CartDaoImplementation implements CartDao{
 				//Multiplying food quantity with (price of per food)
 				cart.setFoodPrice(rs.getDouble("foodPrice") * cart.getQuantity());
 				
+				list.add(cart);
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return cart;
+		return list;
 	}
 
 }

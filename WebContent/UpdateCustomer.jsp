@@ -8,6 +8,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+<jsp:include page="Header.jsp"></jsp:include>
 <%
 	Customer customer = (Customer)session.getAttribute("customer");
 %>
@@ -39,6 +40,7 @@
 		</table>
 	</form>
 	
+<jsp:include page="Footer.jsp"></jsp:include>
 	<!-- <script
   src="https://code.jquery.com/jquery-3.5.0.min.js"
   integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ="

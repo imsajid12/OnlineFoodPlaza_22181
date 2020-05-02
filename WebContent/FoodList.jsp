@@ -10,6 +10,11 @@
 <title>Insert title here</title>
 </head>
 <body>
+<jsp:include page="Header.jsp"></jsp:include>
+<%
+	String admin = (String)session.getAttribute("admin");
+	String user = (String)session.getAttribute("user");
+%>
 	<% 
 		List<Food> foodList = new ArrayList<>();
 		foodList = (List<Food>)session.getAttribute("flist");
@@ -22,7 +27,14 @@
 			<th>Food Category</th>
 			<th>Food Price</th>
 			<th>Food Image</th>
+			
+			<% if(admin != null && user == null) { %>
 			<th colspan="2">Action</th>
+			<%  } %>
+			
+			<% if(admin == null && user != null) { %>
+			<th>Action</th>
+			<%  } %>
 		</tr>
 		
 		<%
@@ -36,8 +48,16 @@
 			<td><%= food.getFoodCategory() %></td>
 			<td><%= food.getFoodPrice() %></td>
 			<td><%= food.getFoodImage() %></td>
+			
+			<% if(admin != null && user == null) { %>
 			<td><a href="FoodServlet?action=delete&id=<%= food.getFoodId() %>">Delete</a></td>
 			<td><a href="FoodServlet?action=update&id=<%= food.getFoodId() %>">Update</a></td>
+			<%  } %>
+			
+			<% if(admin == null && user != null) { %>
+			<td><a href="CartServlet?action=addtocart&id=<%= food.getFoodId() %>">Add to cart</a></td>
+			<%  } %>
+			
 		</tr>
 		
 		<%
@@ -45,5 +65,6 @@
 			}
 		%>
 	</table>
+	<jsp:include page="Footer.jsp"></jsp:include>
 </body>
 </html>

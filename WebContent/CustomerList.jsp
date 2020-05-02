@@ -10,10 +10,11 @@
 <title>Insert title here</title>
 </head>
 <body>
+<jsp:include page="Header.jsp"></jsp:include>
 <% 
 		List<Customer> customerList = new ArrayList<>();
 		customerList = (List<Customer>)session.getAttribute("clist");
-	%>
+%>
 	
 	<table border="1px">
 		<tr>
@@ -46,5 +47,8 @@
 		//end of for each loop
 			}
 		%>
+		</table>
+		
+<jsp:include page="Footer.jsp"></jsp:include>
 </body>
 </html>

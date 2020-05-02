@@ -12,5 +12,5 @@ public interface CartDao {
 	
 	List<Cart> showCart();
 	Cart searchFromCartById(int cartId);
-	Cart searchFromCartByCustomerEmail(String customerEmail);
+	List<Cart> searchFromCartByCustomerEmail(String customerEmail);
 }

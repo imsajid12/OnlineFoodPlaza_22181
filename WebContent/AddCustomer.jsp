@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -5,6 +7,7 @@
 <title>Add Customer</title>
 </head>
 <body>
+<jsp:include page="Header.jsp"></jsp:include>
 	<form action="CustomerServlet" method="POST">
 	<input type="hidden" name="action" value="addCustomer">
 		<table>
@@ -29,6 +32,8 @@
     				</tr>
 		</table>
 	</form>
+	
+	<jsp:include page="Footer.jsp"></jsp:include>
 	
 	<!-- <script
   src="https://code.jquery.com/jquery-3.5.0.min.js"
