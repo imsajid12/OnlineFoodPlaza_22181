@@ -28,6 +28,7 @@ String user = (String)session.getAttribute("user");
             <li><a href="CustomerServlet"><b>Edit Profile</b></a></li>
             <li><a href="ChangePassword.jsp"><b>Change Password</b></a></li>
             <li><a href="LoginServlet"><b>Log Out</b></a></li>
+            <li><a href="CartServlet"><b>Cart</b></a></li>
             <li ><a href="#"><b>Contact</b></a></li>
         </ul>
        <% } %> 

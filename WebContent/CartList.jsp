@@ -14,9 +14,12 @@
 
 <%
 	List<Cart> cartList = (List<Cart>)session.getAttribute("cartlist");
+	if(!cartList.isEmpty()) {
 %>
 
-<table>
+<form action="OrderServlet" method="POST">
+<input type="hidden" name="action" value="placeorder">
+	<table>
 	<tr>
 		<th>Cart Id</th>
 		<th>Food Id</th>
@@ -33,14 +36,23 @@
 		<td><%= cart.getCartId() %></td>
 		<td><%= cart.getFoodId() %></td>
 		<td><%= cart.getFoodName() %></td>
-		<td><input type="number" value="<%= cart.getQuantity() %>"></td>
+		<td><input type="number" name="foodQuantity" value="<%= cart.getQuantity() %>"></td>
 		<td><%= cart.getFoodCategory() %></td>
 		<td><%= cart.getCustomerEmail() %></td>
-		<td><%= cart.getFoodPrice() %></td>
+		<td><input type="text" name="foodPrice" value="<%= cart.getFoodPrice() %>" readonly></td>
 		<td><a href="CartServlet?action=delete&id=<%= cart.getCartId() %>">Delete</a></td>
 	</tr>
 	<% } %>
-</table>
+	</table>
+	<input type="submit" value="Place Order">
+	<% }
+		else if(cartList.isEmpty()) 
+	{
+	%>
+	<b>No items added yet....</b>
+	<% } %>
+</form>
+
 
 <jsp:include page="Footer.jsp"></jsp:include>
 </body>

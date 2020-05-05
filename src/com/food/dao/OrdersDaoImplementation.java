@@ -139,4 +139,42 @@ public class OrdersDaoImplementation implements OrdersDao {
 
 	}
 
+	@Override
+	public int placeOrder(String customerEmail, double totalBill) {
+		double totalBills = 0;
+		String date = new Date().toString();
+		try {
+			ps = con.prepareStatement("INSERT INTO Orders(customerEmail, totalPrice, orderStatus, orderDate) values(?,?,?,?)");
+			ps.setString(1, customerEmail);
+			ps.setDouble(2, totalBill);
+			ps.setString(3, "processing");
+			ps.setString(4, date);
+			
+			result = ps.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+
+	@Override
+	public boolean clearCart(String customerEmail) {
+		try {
+			ps = con.prepareStatement("DELETE FROM Cart WHERE cutomerEmail = ?");
+			ps.setString(1, customerEmail);
+			
+			result = ps.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		if(result > 0)
+			return true;
+		else
+			return false;
+	}
+
 }
