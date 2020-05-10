@@ -36,10 +36,10 @@
 		<td><%= cart.getCartId() %></td>
 		<td><%= cart.getFoodId() %></td>
 		<td><%= cart.getFoodName() %></td>
-		<td><input type="number" name="foodQuantity" value="<%= cart.getQuantity() %>"></td>
+		<td><input type="number" name="foodQuantity" id="foodquantity" value="<%= cart.getQuantity() %>"></td>
 		<td><%= cart.getFoodCategory() %></td>
 		<td><%= cart.getCustomerEmail() %></td>
-		<td><input type="text" name="foodPrice" value="<%= cart.getFoodPrice() %>" readonly></td>
+		<td><input type="text" name="foodPrice" id="foodprice" value="<%= cart.getFoodPrice() %>" readonly></td>
 		<td><a href="CartServlet?action=delete&id=<%= cart.getCartId() %>">Delete</a></td>
 	</tr>
 	<% } %>
@@ -55,5 +55,31 @@
 
 
 <jsp:include page="Footer.jsp"></jsp:include>
+
+<script src="jquery-3.5.0.min.js"></script>
+<script src="jquery.validate.min.js"></script>
+<script>
+$("#foodquantity").change(function(){
+	//alert("Hi");
+	let foodQuantity = document.getElementById("foodquantity").value;
+	const foodPrice = document.getElementById("foodprice").value;
+	
+	let pricePerPiece = foodPrice;
+	
+	console.log("foodQuantity : " + foodQuantity);
+	console.log("foodPrice : " + foodPrice);
+	
+	console.log("pricePerPiece : " + pricePerPiece);
+	
+	if(foodQuantity > 0 || foodQuantity !== "") {
+		document.getElementById("foodprice").value = foodQuantity*foodPrice;
+	}
+	else {
+		alert("Hi");
+	}
+	
+});
+</script>
+
 </body>
 </html>

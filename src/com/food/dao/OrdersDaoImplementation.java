@@ -126,7 +126,7 @@ public class OrdersDaoImplementation implements OrdersDao {
 				o.setOrderDate(rs.getString(5));
 				list.add(o);
 
-				return list;
+				//return list;
 
 			}
 
@@ -135,7 +135,7 @@ public class OrdersDaoImplementation implements OrdersDao {
 			e.printStackTrace();
 		}
 
-		return null;
+		return list;
 
 	}
 

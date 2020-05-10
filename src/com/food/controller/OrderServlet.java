@@ -2,6 +2,8 @@ package com.food.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,6 +14,7 @@ import javax.servlet.http.HttpSession;
 
 import com.food.dao.CartDaoImplementation;
 import com.food.dao.OrdersDaoImplementation;
+import com.food.pojo.Orders;
 
 /**
  * Servlet implementation class OrderServlet
@@ -22,9 +25,16 @@ public class OrderServlet extends HttpServlet {
     
 	CartDaoImplementation cartDaoImpl = new CartDaoImplementation();
 	OrdersDaoImplementation orderDaoImpl = new OrdersDaoImplementation();
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		HttpSession session = request.getSession();
+		PrintWriter out = response.getWriter();
+		List<Orders> orders = new ArrayList<>();
+		String user = (String) session.getAttribute("user");
+		
+		orders = orderDaoImpl.showMyOrder(user);
+		session.setAttribute("orderList", orders);
+		response.sendRedirect("OrderList.jsp");
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -32,6 +42,8 @@ public class OrderServlet extends HttpServlet {
 		double totalBill = 0;
 		HttpSession session = request.getSession();
 		PrintWriter out = response.getWriter();
+		List<Orders> orders = new ArrayList<>();
+		String user = (String) session.getAttribute("user");
 		
 		if(action != null && action.equals("placeorder")) {
 			String foodQuantity[] = request.getParameterValues("foodQuantity");
@@ -42,15 +54,26 @@ public class OrderServlet extends HttpServlet {
 				totalBill += Integer.parseInt(foodQuantity[i]) * Double.parseDouble(foodPrice[i]);
 			}
 			
-			String user = (String)session.getAttribute("user");
+			//String user = (String)session.getAttribute("user");
 			int i = orderDaoImpl.placeOrder(user, totalBill);
 			
 			if(i > 0) {
 				cartDaoImpl.deleteFromCartByCustomerEmail(user);
-				out.print("Added");
+				out.print("Order Placed");
+				
+				
+				 orders = orderDaoImpl.showMyOrder(user); 
+				 session.setAttribute("orderList", orders); 
+				 response.sendRedirect("OrderList.jsp");
 			} else {
 				out.print("Failed");
+				response.sendRedirect("CartList.jsp");
 			}
+		}
+		else {
+			orders = orderDaoImpl.showMyOrder(user);
+			session.setAttribute("orderList", orders);
+			response.sendRedirect("OrderList.jsp");
 		}
 	}
 

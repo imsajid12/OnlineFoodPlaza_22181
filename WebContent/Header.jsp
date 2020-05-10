@@ -12,7 +12,7 @@
 <body>
 <%
 	String admin = (String)session.getAttribute("admin");
-String user = (String)session.getAttribute("user");
+	String user = (String)session.getAttribute("user");
 %>
 <!--  Free CSS Template by TemplateMo.com  --> 
 <div id="templatemo_container">
@@ -29,6 +29,7 @@ String user = (String)session.getAttribute("user");
             <li><a href="ChangePassword.jsp"><b>Change Password</b></a></li>
             <li><a href="LoginServlet"><b>Log Out</b></a></li>
             <li><a href="CartServlet"><b>Cart</b></a></li>
+            <li><a href="OrderServlet"><b>Order</b></a></li>
             <li ><a href="#"><b>Contact</b></a></li>
         </ul>
        <% } %> 

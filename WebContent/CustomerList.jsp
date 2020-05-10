@@ -12,8 +12,12 @@
 <body>
 <jsp:include page="Header.jsp"></jsp:include>
 <% 
+		//Fetching the lits of customers from Session Obj
 		List<Customer> customerList = new ArrayList<>();
 		customerList = (List<Customer>)session.getAttribute("clist");
+		
+		//Fetching email of the logged in user
+		String user = (String)session.getAttribute("user");
 %>
 	
 	<table border="1px">
@@ -30,6 +34,8 @@
 		<%
 			for(Customer customer : customerList) {
 				
+			//Fetching data of the logged in user from the list of customer 
+			if(user.equals(customer.getCustomerEmail())) {
 		%>
 		
 		<tr>
@@ -44,7 +50,8 @@
 		</tr>
 		
 		<%
-		//end of for each loop
+			}
+			//end of for each loop
 			}
 		%>
 		</table>
