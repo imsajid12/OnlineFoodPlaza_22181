@@ -36,13 +36,17 @@
 		<td><%= cart.getCartId() %></td>
 		<td><%= cart.getFoodId() %></td>
 		<td><%= cart.getFoodName() %></td>
-		<td><input type="number" name="foodQuantity" id="foodquantity" value="<%= cart.getQuantity() %>"></td>
+		<td><input type="number" name="foodQuantity" class="foodquantity" value="<%= cart.getQuantity() %>"></td>
 		<td><%= cart.getFoodCategory() %></td>
 		<td><%= cart.getCustomerEmail() %></td>
-		<td><input type="text" name="foodPrice" id="foodprice" value="<%= cart.getFoodPrice() %>" readonly></td>
+		<td><input type="text" name="foodPrice" class="foodprice" value="<%= cart.getFoodPrice() %>" readonly></td>
 		<td><a href="CartServlet?action=delete&id=<%= cart.getCartId() %>">Delete</a></td>
 	</tr>
 	<% } %>
+	<tr>
+		<td colspan="5"><b>Total: </b></td>
+		<td><b id="tBill"></b></td>
+	</tr>
 	</table>
 	<input type="submit" value="Place Order">
 	<% }
@@ -59,6 +63,34 @@
 <script src="jquery-3.5.0.min.js"></script>
 <script src="jquery.validate.min.js"></script>
 <script>
+	function totalBill() {
+		var foodQuantity = $(".foodquantity");
+		var foodPrice = $(".foodprice");
+		
+		var tbill = 0;
+		
+		for(var i = 0; i < foodQuantity.length; i++) {
+			tbill = tbill + (foodQuantity[i].value * foodPrice[i].value);
+		}
+		$("#tBill").text(tbill);
+	}
+	
+	$(function() {
+		$(".foodquantity").click(function() {
+			var fq = $(".foodquantity");
+			
+			for(var i = 0; i < fq.length; i++) {
+				if(fq[i].value <= 0) {
+					$(".foodquantity").val(1);
+				} else {
+					totalBill();
+				}
+			}
+		})
+		totalBill();
+	});
+</script>
+<!-- <script>
 $("#foodquantity").change(function(){
 	//alert("Hi");
 	let foodQuantity = document.getElementById("foodquantity").value;
@@ -79,7 +111,7 @@ $("#foodquantity").change(function(){
 	}
 	
 });
-</script>
+</script> -->
 
 </body>
 </html>

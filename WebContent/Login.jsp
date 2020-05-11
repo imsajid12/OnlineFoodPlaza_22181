@@ -33,7 +33,8 @@
 				<td>Username : </td><td><input type="text" name="username"></td>
 			</tr>
 			<tr>
-				<td>Password : </td><td><input type="password" name="password"></td>
+				<td>Password : </td><td><input type="password" name="password" id="pass">
+				<input type="checkbox" onclick="showPassword()">Show Password</td>
 			</tr>
 			<tr>
 				<td><input type="submit" value="Login"></td>
@@ -63,5 +64,15 @@
     		})
     	});
     </script>
+<script>
+function showPassword() {
+	var password = document.getElementById("pass");
+	if(password.type === "password") {
+		password.type="text";
+	} else {
+		password.type ="password";
+	}
+}
+</script>
 </body>
 </html>

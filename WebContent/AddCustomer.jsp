@@ -15,7 +15,7 @@
 				<td>Customer Name: </td><td><input type="text" name="customername"></td>
 			</tr>
 			<tr>
-				<td>Customer EmailId: </td><td><input type="email" name="customeremail"></td>
+				<td>Customer EmailId: </td><td><input type="email" name="customeremail"><b id="err"></b></td>
 			</tr>
 			<tr>
 				<td>Customer Password: </td><td><input type="text" name="customerpassword"></td>
@@ -69,5 +69,20 @@
 		})
 	});
 	</script>
+<script>
+$(document).ready(function(){
+	$("#customeremail").change(function(){
+		var myuser = $("#customeremail").val();
+		$.ajax({
+			type: "POST",
+			data: {customeremail:myuser},
+			url: "CheckUsername",
+			success: function(result) {
+				$("#err").html(result);
+			}
+		});
+	});
+});
+</script>
 </body>
 </html>

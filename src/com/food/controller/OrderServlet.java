@@ -55,16 +55,11 @@ public class OrderServlet extends HttpServlet {
 			}
 			
 			//String user = (String)session.getAttribute("user");
-			int i = orderDaoImpl.placeOrder(user, totalBill);
+			Orders order = orderDaoImpl.placeOrder(user, totalBill);
 			
-			if(i > 0) {
-				cartDaoImpl.deleteFromCartByCustomerEmail(user);
-				out.print("Order Placed");
-				
-				
-				 orders = orderDaoImpl.showMyOrder(user); 
-				 session.setAttribute("orderList", orders); 
-				 response.sendRedirect("OrderList.jsp");
+			if(order != null) { 
+				 request.setAttribute("placeorder", order); 
+				 request.getRequestDispatcher("Order.jsp").forward(request, response);
 			} else {
 				out.print("Failed");
 				response.sendRedirect("CartList.jsp");

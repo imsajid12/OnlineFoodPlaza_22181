@@ -25,6 +25,8 @@ public class LoginServlet extends HttpServlet {
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
+		
+		//To logout user
 		session.invalidate();
 		response.sendRedirect("index.jsp");
 	}
@@ -67,7 +69,9 @@ public class LoginServlet extends HttpServlet {
 				}
 			}
 			else {
-				out.print("Select type");
+				request.setAttribute("status", "Select type");
+				RequestDispatcher rd = request.getRequestDispatcher("Login.jsp");
+				rd.include(request, response);
 			}
 		}
 		else if(action != null && action.equals("changePassword")) {

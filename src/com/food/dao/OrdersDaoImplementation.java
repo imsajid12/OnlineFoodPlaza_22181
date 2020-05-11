@@ -140,7 +140,7 @@ public class OrdersDaoImplementation implements OrdersDao {
 	}
 
 	@Override
-	public int placeOrder(String customerEmail, double totalBill) {
+	public Orders placeOrder(String customerEmail, double totalBill) {
 		double totalBills = 0;
 		String date = new Date().toString();
 		try {
@@ -151,12 +151,33 @@ public class OrdersDaoImplementation implements OrdersDao {
 			ps.setString(4, date);
 			
 			result = ps.executeUpdate();
+			
+			if(result > 0) {
+				ps = con.prepareStatement("SELECT * FROM Orders WHERE customerEmail = ? and orderDate = ?");
+				ps.setString(1, customerEmail);
+				ps.setString(2, date);
+				
+				rs = ps.executeQuery();
+				if(rs != null && rs.next()) {
+					Orders order = new Orders(
+							rs.getInt("orderId"),
+							rs.getDouble("totalPrice"),
+							rs.getString("customerEmail"),
+							rs.getString("orderStatus"),
+							rs.getString("orderDate")
+							);
+					
+					new CartDaoImplementation().deleteFromCartByCustomerEmail(customerEmail);
+					
+					return order;
+				}
+			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		return result;
+		return null;
 	}
 
 	@Override

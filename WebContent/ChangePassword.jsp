@@ -31,7 +31,7 @@
 			</tr>
 			<tr>
 				<td><input type="submit" value="Change Password"></td>
-				<td><input type="submit" value="Cancel"></td>
+				<td><input type="reset" value="Cancel"></td>
 			</tr>
 		</table>
 		</fieldset>

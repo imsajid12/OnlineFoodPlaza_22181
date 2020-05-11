@@ -8,7 +8,7 @@ public interface OrdersDao {
 
 	Orders placeOrder(String customeremail);
 	
-	int placeOrder(String customerEmail, double totalBill);
+	Orders placeOrder(String customerEmail, double totalBill);
 
 	List<Orders> showAllOrder();
 
